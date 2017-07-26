@@ -105,20 +105,34 @@
             submitHandler: function(form, e) {
               e.preventDefault();
               
+              
               var $button = $(form).find('button');
-              $button.addClass('disabled');
-              $button.addClass('btn-success');
+              
+              $button.prop('disabled', true);
               $button.removeClass('btn-primary');
-              $button.html('SENT!')
+              $button.addClass('disabled');
+  
               
-              $.post($(form).attr("action"), $(form).serialize()).then(function() {
+              $.ajax({
+                url : $(form).attr("action"), 
+                method : 'POST',
+                data : $(form).serialize(),
+                success : function() {
               
-                // TODO
-                // dataLayer push
-                // extract selected checkboxes for segmentation
-                
-                alert("Thank you!");
-                
+                  // TODO
+                  // dataLayer push
+                  // extract selected checkboxes for segmentation
+                  
+                  $button.addClass('btn-success');
+                  
+                  $button.html('SENT!');
+                },
+                error : function() {
+                  $button.addClass('btn-danger');
+                  
+                  $button.html('ERROR!');
+                  
+                }                
               });
               
 

@@ -35,7 +35,7 @@ module.exports =
           path: (e) -> "#{slugify(e.name)}"     
     )
     js_pipeline(
-        files: [ "assets/js/jquery-3.2.1.js", "assets/js/jquery.validate.min.js", "assets/js/marked.js", "assets/js/function.js" ], 
+        files: [ "assets/js/jquery-3.2.1.js", "assets/js/jquery.validate.min.js", "assets/js/marked.js", "assets/js/functions.js" ], 
         out: 'js/build.js', 
         minify: true
     )

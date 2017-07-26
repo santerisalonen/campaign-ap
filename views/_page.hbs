@@ -22,7 +22,7 @@
     </div>
       
     
-    <div class="container" id="main">
+    <div class="container content-block">
        
      <div class="col-xs-12 lead-img">
       
@@ -69,17 +69,17 @@
             <label>Koska ajattelit lähteä lomalle?</label>
             <div class="checkbox">
               <label>
-                <input type="checkbox" name="autumn_2017"> Syksyllä 2017              
+                <input type="checkbox" name="travel_time[]" value="autumn_2017"> Kesällä tai syksyllä 2017              
               </label>
             </div>
             <div class="checkbox">
               <label>
-                <input type="checkbox" name="winter_2017_2018"> Talvella 2017/2018
+                <input type="checkbox" name="travel_time[]" value="winter_2017_2018"> Talvella 2017/2018
               </label>
             </div>
             <div class="checkbox">
               <label>
-                <input type="checkbox" name="later"> Myöhemmin
+                <input type="checkbox" name="travel_time[]" value="later"> Myöhemmin
               </label>
             </div>
           </div>
@@ -94,18 +94,34 @@
           $("#subscribe-form").validate({
             rules: {
               etunimi: { required: true },
+              sukunimi: { required: true },
               email: { required: true, email: true }
             },
             messages: {
-              etunimi: { required: "Please enter your name"  },
-              email: { required: "Please enter your email address." }
+              etunimi: { required: "Etunimi puuttuu" },
+              sukunimi: { required: "Sukunimi puuttuu"  },
+              email: { required: "Sähköpostiosoite puuttuu" }
             },
             submitHandler: function(form, e) {
               e.preventDefault();
               
+              var $button = $(form).find('button');
+              $button.addClass('disabled');
+              $button.addClass('btn-success');
+              $button.removeClass('btn-primary');
+              $button.html('SENT!')
+              
+              /**
               $.post($(form).attr("action"), $(form).serialize()).then(function() {
+              
+              
+                // dataLayer push
+                // extract selected checkboxes for segmentation
+                
                 alert("Thank you!");
+                
               });
+              */
 
             }
           });
@@ -116,8 +132,53 @@
         </script>
 
       </div>
-        
     </div>
+      
+    <div class="container content-block" id="item-grid" style="display:none">  
+    
+
+      
+      <div class="col-xs-12">
+          <h3>Tutustu lomavalikoimaamme</h3>
+      </div>     
+        
+      </div>
+      
+      <script>
+      $(document).ready(function() {
+        
+        $.ajax( {
+          url : 'https://xs1gc6anuj.execute-api.eu-west-1.amazonaws.com/v1/apollomatkat_fi/public/hotels_fb',
+          method : 'GET',
+          success : function(result) {
+            
+            var items = [];
+            
+            for( var i = 0; i < result.length && i < 6; i++) {
+              var item = result[i];
+              var html = '<div class="col-xs-6 col-md-4">';
+              html += '<a href="' + item.link + '">'
+              html += '<img src="' + item.image_link + '" />';
+              html += '<h4>' + item.title + '</h4>'
+              html += '</a>';
+              html += '<p>' + item.custom_label_0 + '</p>';
+              html += '</div>';
+              items.push(html);
+            }
+            
+            $('#item-grid').append( items.join('') );
+            $('#item-grid').fadeIn("slow");
+          }       
+        })
+        
+      });
+      
+      
+      </script>
+      
+    </div>
+      
+    
 
     <div class="container-fluid" id="footer">
     

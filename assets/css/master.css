@@ -8,6 +8,10 @@
     src: url(/fonts/droidsans.woff2) format("woff");
 }
 
+.centered {
+  text-align:center;
+}
+
 body {
   background: linear-gradient(#2f889e 0%,#81c1d2 30%,#c7dcdb 100%);
   background-attachment: fixed;
@@ -17,9 +21,10 @@ body {
 h1, h2, h3, h4 {
   font-family: "VistaSansAltBold",sans-serif;
 }
-#main {
+.content-block {
   background: #fff;
   padding: 20px 0px;
+  margin-bottom: 20px;
 }
 
 .lead-img {
@@ -33,4 +38,9 @@ h1, h2, h3, h4 {
 
 form .error {
   color: red;
+  font-weight: 100;
+}
+
+#item-grid img {
+  max-width : 100%;
 }

@@ -1,10 +1,32 @@
 
-body {
-    background: linear-gradient(#2f889e 0%,#81c1d2 30%,#c7dcdb 100%);
-    background-attachment: fixed;
-    background-color: #49a5b4;
+@font-face {
+    font-family: "VistaSansAltBold";
+    src: url(/fonts/vistasansaltbold.woff) format("woff");
+}
+@font-face {
+    font-family: "DroidSans";
+    src: url(/fonts/droidsans.woff2) format("woff");
 }
 
+body {
+  background: linear-gradient(#2f889e 0%,#81c1d2 30%,#c7dcdb 100%);
+  background-attachment: fixed;
+  background-color: #49a5b4;
+  font-family: "DroidSans",sans-serif;
+}
+h1, h2, h3, h4 {
+  font-family: "VistaSansAltBold",sans-serif;
+}
 #main {
-    background: #fff;
+  background: #fff;
+  padding: 20px 0px;
+}
+
+.lead-img {
+  margin-bottom:20px;
+}
+
+#footer {
+  min-height: 150px;
+  
 }

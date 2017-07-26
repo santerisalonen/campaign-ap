@@ -15,49 +15,93 @@
         
     <div class="container">
         
-        <img src="//cdn-prod-blue-www.apollomatkat.fi/v-eb2616cbc9895159b7ed1aaee3e5b822/content/themes/apollo/content/img/logo_without_slogan2.png" />     
+      <a href="http://www.apollomatkat.fi">
+        <img src="//cdn-prod-blue-www.apollomatkat.fi/v-eb2616cbc9895159b7ed1aaee3e5b822/content/themes/apollo/content/img/logo_without_slogan2.png" alt="Apollomatkat" />   
+      </a>
     
-    </div>    
-        
+    </div>
+      
+    
     <div class="container" id="main">
        
-     
-        <div class="col-md-6">
-            <span class="marked">{{entry.body}}</span>
-        
-        </div>
-        <div class="col-md-6">
-            
-            <form name="contact" netlify-honeypot="bot-field" action="thank-you" id="my-form" netlify>
-                <p class="hidden">
-                    <label>Don’t fill this out: <input name="bot-field"></label>
-                </p>
-                <p>
-                    <label>Email: <input type="email" name="email"></label>
-                </p>
-                <p>
-                    <label>Message: <textarea name="message"></textarea></label>
-                </p>
-                <p>
-                    <button type=”submit”>Send</button>
-                </p>
-            </form>
-            
-            <script>
-            $(document).ready(function() {
-                $("#my-form").submit(function(e) {
-                  e.preventDefault();
+     <div class="col-xs-12 lead-img">
+      
+        <img src="http://www.apollomatkat.fi/upload/img/lomavalikoima/talvi/940x320_W1718-Goa.jpg" width="100%" />
+       
+      </div>
+      
+      <div class="col-md-6">
+        <span class="marked">{{entry.body}}</span>
 
-                  var $form = $(this);
-                  $.post($form.attr("action"), $form.serialize()).then(function() {
-                    alert("Thank you!");
-                  });
-                });                
-                
-            });
-            </script>
-            
-        </div>
+
+      </div>
+      <div class="col-md-6">
+        
+        <h3>{{#if entry.ctaHeading}} {{entry.ctaHeading}} {{else}} Liity uutiskirjeen tilaajaksi ja saat heti alennuskoodin sähköpostiisi {{/if}}</h3>
+        
+        <p>Uutiskirjeen tilaajana saat tiedon myös muista matkatarjouksistamme ennen muita.</p>
+        
+        <form name="subscribe" netlify-honeypot="bot-field" action="thank-you" id="subscribe-form" netlify>
+
+          <span class="hidden">
+              <label for="bot-field">Älä täytä tätä kenttää: <input name="bot-field" class="form-control" /></label>
+          </span>
+
+          <div class="form-group">
+
+            <label for="etunimi">Etunimi</label>
+            <input type="text" class="form-control" name="etunimi" id="etunimi">
+
+          </div>
+          <div class="form-group">
+            <label for="sukunimi">Sukunimi</label>
+            <input type="text" class="form-control" name="sukunimi" id="sukunimi">
+          </div>
+          <div class="form-group">    
+
+            <label for="email">Sähköposti</label>
+            <input type="email" class="form-control" aria-describedby="emailHelp" name="email" id="email">
+            <small id="emailHelp" class="form-text text-muted">Yhteystietojasi ei luovuteta ikinä muille.</small>
+
+          </div>
+
+          <div class="form-group">
+            <label>Koska ajattelit lähteä lomalle?</label>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox"> Syksyllä 2017              
+              </label>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox"> Talvella 2017/2018
+              </label>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox"> Myöhemmin
+              </label>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-lg btn-primary">{{#if entry.ctaButtonText}} {{entry.ctaButtonText}} {{else}} Liity nyt {{/if}}</button>
+        </form>
+
+        <script>
+        $(document).ready(function() {
+            $("#my-form").submit(function(e) {
+              e.preventDefault();
+
+              var $form = $(this);
+              $.post($form.attr("action"), $form.serialize()).then(function() {
+                alert("Thank you!");
+              });
+            });                
+
+        });
+        </script>
+
+      </div>
         
     </div>
 

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+               
+        <script src="js/build.js"></script>
+
+        <link type="text/css" rel="stylesheet" href="css/build.css"/>
+        
+        <title>{{entry.title}}</title>
+    
+
+    </head>
+        
+    <body id="page">
+        
+        <h1>{{config.gtmContainer}}</h1>
+        <h2>{{config.branch}}</h2>
+        
+    <div class="container">
+        
+        <img src="//cdn-prod-blue-www.apollomatkat.fi/v-eb2616cbc9895159b7ed1aaee3e5b822/content/themes/apollo/content/img/logo_without_slogan2.png" />     
+    
+    </div>    
+        
+    <div class="container" id="main">
+       
+     
+        <div class="col-md-6">
+            <span class="marked">{{entry.body}}</span>
+        
+        </div>
+        <div class="col-md-6">
+            
+            <form name="contact" action="thank-you" netlify>
+              <p>
+                <label>Your Name: <input type="text" name="name"></label>   
+              </p>
+              <p>
+                <label>Your Email: <input type="email" name="email"></label>
+              </p>
+              <p>
+                <label>Message: <textarea name="message"></textarea></label>
+              </p>
+              <p>
+                <button type="submit">Send</button>
+              </p>
+            </form>
+            
+        </div>
+        
+    </div>
+
+    <div class="container-fluid" id="footer">
+    
+    </div>
+
+    </body>
+</html>

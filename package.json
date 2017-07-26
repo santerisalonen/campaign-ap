@@ -1,0 +1,13 @@
+{
+  "name": "apollomatkat-campaign",
+  "description": "",
+  "dependencies": {
+    "coffee-script": "1.x",
+    "css-pipeline": "0.3.x",
+    "handlebars": "^4.0.10",
+    "js-pipeline": "0.2.x",
+    "roots": "^5.2.0",
+    "roots-contentful": "0.0.9",
+    "slug": "^0.9.1"
+  }
+}

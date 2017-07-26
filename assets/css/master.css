@@ -1,0 +1,10 @@
+
+body {
+    background: linear-gradient(#2f889e 0%,#81c1d2 30%,#c7dcdb 100%);
+    background-attachment: fixed;
+    background-color: #49a5b4;
+}
+
+#main {
+    background: #fff;
+}

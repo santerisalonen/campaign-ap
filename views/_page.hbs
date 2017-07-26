@@ -26,7 +26,7 @@
        
      <div class="col-xs-12 lead-img">
       
-        <img src="http://www.apollomatkat.fi/upload/img/lomavalikoima/talvi/940x320_W1718-Goa.jpg" width="100%" />
+        <img src="/img/goa-crop.jpg" width="100%" />
        
       </div>
       
@@ -89,15 +89,28 @@
 
         <script>
         $(document).ready(function() {
-            $("#my-form").submit(function(e) {
+          
+          
+          $("#subscribe-form").validate({
+            rules: {
+              etunimi: { required: true },
+              email: { required: true, email: true }
+            },
+            messages: {
+              etunimi: { required: "Please enter your name"  },
+              email: { required: "Please enter your email address." }
+            },
+            submitHandler: function(form, e) {
               e.preventDefault();
               
-              var $form = $(this);
-              
-              $.post($form.attr("action"), $form.serialize()).then(function() {
+              $.post($(form).attr("action"), $(form).serialize()).then(function() {
                 alert("Thank you!");
               });
-            });                
+
+            }
+          });
+           
+            
 
         });
         </script>

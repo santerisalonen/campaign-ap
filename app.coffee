@@ -1,8 +1,13 @@
 # set up contentful config as environment variables (in dev)
+config = 
+  gtmContainer: 'XXXXXXX'
+  production: true;
+  
 try 
   env = require './env' 
   process.env.access_token = env.access_token
   process.env.space_id = env.space_id
+  config.production = false;
 catch err
         
 js_pipeline  = require 'js-pipeline'
@@ -12,9 +17,7 @@ slugify      = require 'slug'
 
 slugify.defaults.modes['pretty']['lower'] = true 
 
-config = 
-  gtmContainer: 'XXXXXXX'
-  branch: process.env.BRANCH
+
 
 
 module.exports =

@@ -11,13 +11,15 @@
 .centered {
   text-align:center;
 }
-
+html {
+  height:100%;
+}
 body {
   background: linear-gradient(#2f889e 0%,#81c1d2 30%,#c7dcdb 100%);
-  background-attachment: fixed;
   background-color: #49a5b4;
   font-family: "DroidSans",sans-serif;
 }
+
 h1, h2, h3, h4 {
   font-family: "VistaSansAltBold",sans-serif;
 }
@@ -43,4 +45,22 @@ form .error {
 
 #item-grid img {
   max-width : 100%;
+}
+
+#subscribe-col {
+  background:#f3f3f3;
+  padding:20px;
+  margin-bottom:-20px;
+}
+#item-grid .item {
+  position:relative;
+}
+
+#item-grid .item {
+  margin-bottom:15px;
+}
+#item-grid .item span.location {
+  display:block;
+  margin-top:-10px;
+  color:#666;
 }

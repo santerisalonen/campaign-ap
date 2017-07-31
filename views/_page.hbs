@@ -8,6 +8,8 @@
         <link type="text/css" rel="stylesheet" href="css/build.css"/>
         
         <title>{{entry.title}}</title>
+      
+        <script>window.dataLayer = window.dataLayer || [];</script>
     
     </head>
         
@@ -26,16 +28,16 @@
        
      <div class="col-xs-12 lead-img">
       
-        <img src="/img/goa-crop.jpg" width="100%" />
+        <img src="{{#if entry.leadImageUrl}}{{entry.leadImageUrl}}{{else}}/img/goa-crop.jpg{{/if}}" width="100%" />
        
       </div>
       
-      <div class="col-md-6">
+      <div class="col-md-7">
         <span class="marked">{{entry.body}}</span>
 
 
       </div>
-      <div class="col-md-6">
+      <div class="col-md-5" id="subscribe-col">
         
         <h3>{{#if entry.ctaHeading}} {{entry.ctaHeading}} {{else}} Liity uutiskirjeen tilaajaksi ja saat heti alennuskoodin sähköpostiisi {{/if}}</h3>
         
@@ -65,21 +67,36 @@
 
           </div>
 
-          <div class="form-group">
+          <div class="form-group" id="segment-radio">
             <label>Koska ajattelit lähteä lomalle?</label>
-            <div class="checkbox">
+            <div class="radio">
               <label>
-                <input type="checkbox" name="travel_time[]" value="autumn_2017"> Kesällä tai syksyllä 2017              
+                <input type="radio" name="segment_travels_in" id="optionsRadios1" value="now" >
+                Heti!
               </label>
             </div>
-            <div class="checkbox">
+            <div class="radio">
               <label>
-                <input type="checkbox" name="travel_time[]" value="winter_2017_2018"> Talvella 2017/2018
+                <input type="radio" name="segment_travels_in" id="optionsRadios2" value="6_months">
+                Alle 6 kuukauden sisällä
               </label>
             </div>
-            <div class="checkbox">
+            <div class="radio">
               <label>
-                <input type="checkbox" name="travel_time[]" value="later"> Myöhemmin
+                <input type="radio" name="segment_travels_in" id="optionsRadios3" value="1_year">
+                Alle vuoden sisällä
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" name="segment_travels_in" id="optionsRadios3" value="later">
+                Myöhemmin
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" name="segment_travels_in" id="optionsRadios3" value="never">
+                En koskaan!
               </label>
             </div>
           </div>
@@ -90,6 +107,21 @@
         <script>
         $(document).ready(function() {
           
+          var trackForm = function(form) {
+            dataLayer.push( {
+              event : 'customEventFi',
+              category : 'lp_campaign',
+              action : 'subscribe',
+              label : '{{entry.labels}}'
+            });
+            dataLayer.push( {
+              event : 'customEventFi',
+              category : 'lp_campaign',
+              action : $(form).find('#segment-radio input[type=radio]').attr('name'),
+              label : $(form).find('#segment-radio input[type=radio]:checked').val()
+            });
+            
+          };
           
           $("#subscribe-form").validate({
             rules: {
@@ -105,32 +137,32 @@
             submitHandler: function(form, e) {
               e.preventDefault();
               
-              
               var $button = $(form).find('button');
               
               $button.prop('disabled', true);
               $button.removeClass('btn-primary');
               $button.addClass('disabled');
-  
+              
               
               $.ajax({
                 url : $(form).attr("action"), 
                 method : 'POST',
                 data : $(form).serialize(),
                 success : function() {
-              
-                  // TODO
-                  // dataLayer push
-                  // extract selected checkboxes for segmentation
-                  
-                  $button.addClass('btn-success');
-                  
+                  $button.addClass('btn-success');  
                   $button.html('SENT!');
+                  trackForm(form);       
                 },
-                error : function() {
-                  $button.addClass('btn-danger');
-                  
-                  $button.html('ERROR!');
+                error : function() {      
+                  if( {{config.production}} ) {
+                    $button.addClass('btn-danger');
+                    $button.html('Virhe :(');
+                    $button.after().html('<p>Valitettavasti lomake ei tällä hetkellä toimi emmekä voi lähettää alennuskuponkia automaattisesti. Ota yhteyttä sähköpostilla xxxx@xxxx.fi</p>');
+                  }
+                  else {
+                    trackForm(form);
+                  }
+
                   
                 }                
               });
@@ -151,8 +183,9 @@
     
 
       
-      <div class="col-xs-12">
-          <h3>Tutustu lomavalikoimaamme</h3>
+      <div class="col-xs-12" id="itemFeedText">
+        <span class="marked">{{entry.itemFeedText}}</span>  
+        
       </div>     
         
       </div>
@@ -160,33 +193,37 @@
       <script>
       $(document).ready(function() {
         
-        $.ajax( {
-          url : 'https://xs1gc6anuj.execute-api.eu-west-1.amazonaws.com/v1/apollomatkat_fi/public/hotels_fb',
-          method : 'GET',
-          success : function(result) {
-            
-            var items = [];
-            
-            for( var i = 0; i < result.length && i < 6; i++) {
-              var item = result[i];
-              var html = '<div class="col-xs-6 col-md-4">';
-              html += '<a href="' + item.link + '">'
-              html += '<img src="' + item.image_link + '" />';
-              html += '<h4>' + item.title + '</h4>'
-              html += '</a>';
-              html += '<p>' + item.custom_label_0 + '</p>';
-              html += '</div>';
-              items.push(html);
-            }
-            
-            $('#item-grid').append( items.join('') );
-            $('#item-grid').fadeIn("slow");
-          }       
-        })
-        
+       
+        var url = "{{{entry.itemFeedUrl}}}";
+    
+        if( url.length > 0 ) {
+ 
+          $.ajax( {
+            url : url,
+            method : 'GET',
+            success : function(result) {
+              
+
+              var items = [];
+
+              for( var i = 0; i < result.length && i < 6; i++) {
+                var item = result[i];
+                var html = '<div class="col-xs-6 col-md-4 item">';
+                html += '<a href="' + item.link + '">'
+                html += '<img src="' + item.image_medium + '" />';
+                html += '<h4>' + item.title + '</h4>'
+                html += '</a>';
+                html += '<span class="location">' + item.location + '</span>';
+                html += '</div>';
+                items.push(html);
+              }
+
+              $('#item-grid').append( items.join('') );
+              $('#item-grid').fadeIn("slow");
+            }       
+          })
+        }
       });
-      
-      
       </script>
       
     </div>

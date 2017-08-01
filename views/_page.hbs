@@ -108,6 +108,7 @@
         $(document).ready(function() {
           
           var trackForm = function(form) {
+            $(form).append('<p style="margin-top:10px">Lähetimme alennuskoodin sähköpostiisi. Jos viestiä ei näy, niin tarkista myös roskapostikansio. Viestin tulemisessa saattaa kestää muutamia minuutteja. Ongelmatilanteissa voit ottaa yhteyttä sähköpostilla {{config.failbackEmailAddress}}</p>');
             dataLayer.push( {
               event : 'customEventFi',
               category : 'lp_campaign',
@@ -143,23 +144,24 @@
               $button.removeClass('btn-primary');
               $button.addClass('disabled');
               
-              
               $.ajax({
                 url : $(form).attr("action"), 
                 method : 'POST',
                 data : $(form).serialize(),
                 success : function() {
                   $button.addClass('btn-success');  
-                  $button.html('SENT!');
+                  $button.html('Lähetetty!');
                   trackForm(form);       
                 },
                 error : function() {      
                   if( {{config.production}} ) {
                     $button.addClass('btn-danger');
                     $button.html('Virhe :(');
-                    $button.after().html('<p>Valitettavasti lomake ei tällä hetkellä toimi emmekä voi lähettää alennuskuponkia automaattisesti. Ota yhteyttä sähköpostilla xxxx@xxxx.fi</p>');
+                    $(form).append('<p>Valitettavasti lomake ei tällä hetkellä toimi emmekä voi lähettää alennuskuponkia automaattisesti. Ota yhteyttä sähköpostilla {{config.failbackEmailAddress}}</p>');
                   }
                   else {
+                    $button.addClass('btn-success');  
+                    $button.html('Lähetetty!');
                     trackForm(form);
                   }
 

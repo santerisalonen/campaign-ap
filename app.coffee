@@ -1,7 +1,9 @@
 # set up contentful config as environment variables (in dev)
 config = 
+  production: true
+  failbackEmailAddress: 'xxx@example.com'
   gtmContainer: 'XXXXXXX'
-  production: true;
+
   
 try 
   env = require './env' 

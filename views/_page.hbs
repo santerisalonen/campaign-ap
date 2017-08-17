@@ -38,144 +38,66 @@
 
       </div>
       <div class="col-md-5" id="subscribe-col">
+     
+        {{#if entry.subscribeFormHtml}}
+          <h3>{{#if entry.ctaHeading}} {{entry.ctaHeading}} {{else}} Liity uutiskirjeen tilaajaksi ja saat heti alennuskoodin sähköpostiisi {{/if}}</h3>
+
+          <p>Uutiskirjeen tilaajana saat tiedon myös muista matkatarjouksistamme ennen muita.</p>
+
+          {{{entry.subscribeFormHtml}}}
         
-        <h3>{{#if entry.ctaHeading}} {{entry.ctaHeading}} {{else}} Liity uutiskirjeen tilaajaksi ja saat heti alennuskoodin sähköpostiisi {{/if}}</h3>
+        {{/if}}
         
-        <p>Uutiskirjeen tilaajana saat tiedon myös muista matkatarjouksistamme ennen muita.</p>
-        
-        <form name="subscribe" netlify-honeypot="bot-field" action="thank-you" id="subscribe-form" netlify>
-
-          <span class="hidden">
-              <label for="bot-field">Älä täytä tätä kenttää: <input name="bot-field" class="form-control" /></label>
-          </span>
-
-          <div class="form-group">
-
-            <label for="etunimi">Etunimi</label>
-            <input type="text" class="form-control" name="etunimi" id="etunimi">
-
-          </div>
-          <div class="form-group">
-            <label for="sukunimi">Sukunimi</label>
-            <input type="text" class="form-control" name="sukunimi" id="sukunimi">
-          </div>
-          <div class="form-group">    
-
-            <label for="email">Sähköposti</label>
-            <input type="email" class="form-control" aria-describedby="emailHelp" name="email" id="email">
-            <small id="emailHelp" class="form-text text-muted">Yhteystietojasi ei luovuteta ikinä muille.</small>
-
-          </div>
-
-          <div class="form-group" id="segment-radio">
-            <label>Koska ajattelit lähteä lomalle?</label>
-            <div class="radio">
-              <label>
-                <input type="radio" name="segment_travels_in" id="optionsRadios1" value="now" >
-                Heti!
-              </label>
-            </div>
-            <div class="radio">
-              <label>
-                <input type="radio" name="segment_travels_in" id="optionsRadios2" value="6_months">
-                Alle 6 kuukauden sisällä
-              </label>
-            </div>
-            <div class="radio">
-              <label>
-                <input type="radio" name="segment_travels_in" id="optionsRadios3" value="1_year">
-                Alle vuoden sisällä
-              </label>
-            </div>
-            <div class="radio">
-              <label>
-                <input type="radio" name="segment_travels_in" id="optionsRadios3" value="later">
-                Myöhemmin
-              </label>
-            </div>
-            <div class="radio">
-              <label>
-                <input type="radio" name="segment_travels_in" id="optionsRadios3" value="never">
-                En koskaan!
-              </label>
-            </div>
-          </div>
-
-          <button type="submit" class="btn btn-lg btn-primary">{{#if entry.ctaButtonText}} {{entry.ctaButtonText}} {{else}} Liity nyt {{/if}}</button>
-        </form>
-
         <script>
-        $(document).ready(function() {
-          
-          var trackForm = function(form) {
-            $(form).append('<p style="margin-top:10px">Lähetimme alennuskoodin sähköpostiisi. Jos viestiä ei näy, niin tarkista myös roskapostikansio. Viestin tulemisessa saattaa kestää muutamia minuutteja. Ongelmatilanteissa voit ottaa yhteyttä sähköpostilla {{config.failbackEmailAddress}}</p>');
-            dataLayer.push( {
-              event : 'customEventFi',
-              category : 'lp_campaign',
-              action : 'subscribe',
-              label : '{{entry.labels}}'
-            });
-            dataLayer.push( {
-              event : 'customEventFi',
-              category : 'lp_campaign',
-              action : $(form).find('#segment-radio input[type=radio]').attr('name'),
-              label : $(form).find('#segment-radio input[type=radio]:checked').val()
-            });
-            
-          };
-          
-          $("#subscribe-form").validate({
-            rules: {
-              etunimi: { required: true },
-              sukunimi: { required: true },
-              email: { required: true, email: true }
-            },
-            messages: {
-              etunimi: { required: "Etunimi puuttuu" },
-              sukunimi: { required: "Sukunimi puuttuu"  },
-              email: { required: "Sähköpostiosoite puuttuu" }
-            },
-            submitHandler: function(form, e) {
-              e.preventDefault();
-              
-              var $button = $(form).find('button');
-              
-              $button.prop('disabled', true);
-              $button.removeClass('btn-primary');
-              $button.addClass('disabled');
-              
-              $.ajax({
-                url : $(form).attr("action"), 
-                method : 'POST',
-                data : $(form).serialize(),
-                success : function() {
-                  $button.addClass('btn-success');  
-                  $button.html('Lähetetty!');
-                  trackForm(form);       
-                },
-                error : function() {      
-                  if( {{config.production}} ) {
-                    $button.addClass('btn-danger');
-                    $button.html('Virhe :(');
-                    $(form).append('<p>Valitettavasti lomake ei tällä hetkellä toimi emmekä voi lähettää alennuskuponkia automaattisesti. Ota yhteyttä sähköpostilla {{config.failbackEmailAddress}}</p>');
-                  }
-                  else {
-                    $button.addClass('btn-success');  
-                    $button.html('Lähetetty!');
-                    trackForm(form);
-                  }
+        /*
+         We need to use iframe hacks to make this work, 
+         123contactform-messager-form.js and 123contactform-messager-form.js push messages to parent
+        */
+        window.addEventListener('message', handleMessage, false);
+        function sanitizeString(str) {
+          return str.toLowerCase().replace(/[^a-zäö0-9]/g, '_').replace(/_$|^_/g, '');
+        }
+        function handleMessage(e) {
+          e = e.data;
 
-                  
-                }                
+          if( typeof e.title !== 'undefined' && typeof e.value !== 'undefined' ) {
+            e.title = sanitizeString(e.title);
+            e.value = sanitizeString(e.value);            
+          }
+
+          window.segments = window.segments || {};
+          switch(e.event) {  
+            case 'checkBoxCheck':
+              segments[e.title] = segments[e.title] || [];
+              segments[e.title].push( e.value );
+              break;
+            case 'checkBoxUnCheck':
+              segments[e.title].splice(segments[e.title].indexOf(e.value), 1);
+              break;
+            case 'radioSelect':
+              segments[e.title] = e.value;
+              break;
+              
+            case 'subscribe': 
+              dataLayer.push({
+                event: 'customEventFi',
+                category : 'kampanja.apollomatkat.fi',
+                action : 'subscribe',
+                label : '{{entry.labels}}'
               });
-              
-
-            }
-          });
-           
-            
-
-        });
+              for(var key in segments) {
+                
+                dataLayer.push({
+                  event: 'customEventFi',
+                  category : 'kampanja.apollomatkat.fi',
+                  action : 'sgm_' + key,
+                  label : ( Array.isArray( segments[key] ) ) ? segments[key].join(',') : segments[key]
+                });
+                
+              }
+              break;
+          } 
+        }
         </script>
 
       </div>

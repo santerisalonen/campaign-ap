@@ -112,7 +112,9 @@
 
       
       <div class="col-xs-12" id="itemFeedText">
-        {{marked entry.itemFeedText}}
+        {{#if entry.itemFeedText}}
+          {{{marked entry.itemFeedText}}}
+        {{/if}}
       </div>     
         
     </div>

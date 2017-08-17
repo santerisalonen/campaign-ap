@@ -16,16 +16,17 @@ js_pipeline  = require 'js-pipeline'
 css_pipeline = require 'css-pipeline'
 contentful   = require 'roots-contentful'
 slugify      = require 'slug'
+marked       = require 'marked'
 
 slugify.defaults.modes['pretty']['lower'] = true 
 
 module.exports =
-  
   locals:
     config: config
+    marked: marked  
   
   ignores: ['readme.md', '**/layout.*', '**/_*', '.gitignore', 'env.coffee']
-  
+
   extensions: [
     contentful(
       access_token: process.env.access_token
@@ -38,7 +39,7 @@ module.exports =
           write: 'pages.json'
     )
     js_pipeline(
-        files: [ "assets/js/jquery-3.2.1.js", "assets/js/jquery.validate.min.js", "assets/js/marked.js", "assets/js/functions.js" ], 
+        files: [ "assets/js/jquery-3.2.1.js", "assets/js/jquery.validate.min.js", "assets/js/functions.js" ], 
         out: 'js/build.js', 
         minify: true
     )

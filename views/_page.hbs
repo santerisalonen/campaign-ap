@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-               
-        <script src="js/build.js"></script>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link type="text/css" rel="stylesheet" href="css/build.css"/>
-        
-        <title>{{entry.seoTitle}}</title>
-      
-        <script>window.dataLayer = window.dataLayer || [];</script>
+      <script src="js/build.js"></script>
+
+      <link type="text/css" rel="stylesheet" href="css/build.css"/>
+
+      <title>{{entry.seoTitle}}</title>
+
+      <script>window.dataLayer = window.dataLayer || [];</script>
     
     </head>
         
@@ -32,22 +33,10 @@
        
       </div>
       
-      <div class="col-md-7">
-        
-
-      </div>
       
       <div class="col-md-7">
         
-        <script>
-        
-          {{entry.body}}
-  
-        </script>
-        
-        {{{entry.body}}
-        
-        <span class="marked">{{entry.body}}</span>
+        {{{marked entry.body}}}
 
       </div>
       <div class="col-md-5" id="subscribe-col">
@@ -127,7 +116,7 @@
         
       </div>     
         
-      </div>
+    </div>
       
       <script>
       $(document).ready(function() {
@@ -164,8 +153,6 @@
         }
       });
       </script>
-      
-    </div>
       
     
 

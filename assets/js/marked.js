@@ -9,7 +9,7 @@
 /**
  * Block-Level Grammar
  */
-
+    
 var block = {
   newline: /^\n+/,
   code: /^( {4}[^\n]+\n*)+/,

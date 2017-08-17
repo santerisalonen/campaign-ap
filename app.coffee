@@ -19,9 +19,6 @@ slugify      = require 'slug'
 
 slugify.defaults.modes['pretty']['lower'] = true 
 
-
-
-
 module.exports =
   
   locals:

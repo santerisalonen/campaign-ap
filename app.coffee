@@ -33,7 +33,6 @@ module.exports =
     contentful(
       access_token: process.env.access_token
       space_id: process.env.space_id
-      write: 'data.json'
       content_types:
         pages:
           id: 'page'

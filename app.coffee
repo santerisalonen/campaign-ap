@@ -33,11 +33,13 @@ module.exports =
     contentful(
       access_token: process.env.access_token
       space_id: process.env.space_id
+      write: 'data.json'
       content_types:
         pages:
           id: 'page'
           template: 'views/_page.hbs'
-          path: (e) -> "#{slugify(e.name)}"     
+          path: (e) -> "#{slugify(e.name)}"    
+          write: 'pages.json'
     )
     js_pipeline(
         files: [ "assets/js/jquery-3.2.1.js", "assets/js/jquery.validate.min.js", "assets/js/marked.js", "assets/js/functions.js" ], 

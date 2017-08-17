@@ -39,14 +39,16 @@
       </div>
       <div class="col-md-5" id="subscribe-col">
      
-        {{#if entry.subscribeFormHtml}}
-          <h3>{{#if entry.ctaHeading}} {{entry.ctaHeading}} {{else}} Liity uutiskirjeen tilaajaksi ja saat heti alennuskoodin sähköpostiisi {{/if}}</h3>
+   
+        <h3>{{#if entry.ctaHeading}} {{entry.ctaHeading}} {{else}} Liity uutiskirjeen tilaajaksi ja saat heti alennuskoodin sähköpostiisi {{/if}}</h3>
 
-          <p>Uutiskirjeen tilaajana saat tiedon myös muista matkatarjouksistamme ennen muita.</p>
+        <p>Uutiskirjeen tilaajana saat tiedon myös muista matkatarjouksistamme ennen muita.</p>
 
-          {{{entry.subscribeFormHtml}}}
+        <iframe scrolling="no" allowTransparency="true" style="min-height:580px; overflow:none;" width="100%" id="contactform123" name="contactform123" marginwidth="0" marginheight="0" frameborder="0" src="http://www.123contactform.com/sf.php?s=my-contact-form-2905855&control31762580={{entry.name}}">
+        <p>Valitettavasti selaimesi ei tue iframe-lomakkeita</p>
+        </iframe>
         
-        {{/if}}
+        
         
         <script>
         /*

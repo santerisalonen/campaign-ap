@@ -7,7 +7,7 @@ function getURLParameter(name) {
 $(document).ready(function() {
   
   var labels = getURLParameter('labels');
-  labels = ( labels ) ? labels.split(',') : null;
+  labels = ( labels ) ? labels.split(',') : [];
 
   for(var i = 0; i < labels.length; i++) {
     console.log(labels[i]);

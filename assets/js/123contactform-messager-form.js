@@ -1,11 +1,27 @@
+function getURLParameter(name) {
+
+  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
+}
 // make 123contactform post messages to parent
 // push message to parent when checkbox is selected
 $(document).ready(function() {
-  var fireEvent = function(event) {
+  
+  var labels = getURLParameter('labels');
+  labels = ( labels ) ? labels.split(',') : null;
+
+  for(var i = 0; i < labels.length; i++) {
+    console.log(labels[i]);
+    var $label = $('.label-text .label-cont:contains('+labels[i]+')');
     
+    $label.closest('label').prev('input').prop('checked', true);
+
+    
+  }
+  
+  
+  var fireEvent = function(event) {
    parent.postMessage(event, "http://kampanja.apollomatkat.fi");
-  // parent.postMessage(event, "http://localhost:1111");  
-   
+   // parent.postMessage(event, "http://localhost:1111");  
   }
 	$('input[type=checkbox]').change(function() {
     

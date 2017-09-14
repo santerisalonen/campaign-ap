@@ -21,6 +21,7 @@ $(document).ready(function() {
   
   var fireEvent = function(event) {
    parent.postMessage(event, "http://kampanja.apollomatkat.fi");
+   parent.postMessage(event, "https://kampanja.apollomatkat.fi");
    // parent.postMessage(event, "http://localhost:1111");  
   }
 	$('input[type=checkbox]').change(function() {

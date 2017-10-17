@@ -10,7 +10,7 @@ $(document).ready(function() {
   labels = ( labels ) ? labels.split(',') : [];
 
   for(var i = 0; i < labels.length; i++) {
-    console.log(labels[i]);
+    // console.log(labels[i]);
     var $label = $('.label-text .label-cont:contains('+labels[i]+')');
     
     $label.closest('label').prev('input').prop('checked', true);

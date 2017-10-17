@@ -11,6 +11,13 @@
       <title>{{entry.seoTitle}}</title>
 
       <script>window.dataLayer = window.dataLayer || [];</script>
+      
+      <script>
+      dataLayer.push({
+        event: 'pageView',
+        labels : '{{entry.labels}}'
+      });
+      </script>
     
     </head>
         
@@ -84,18 +91,15 @@
               
             case 'subscribe': 
               dataLayer.push({
-                event: 'customEventFi',
-                category : 'kampanja.apollomatkat.fi',
-                action : 'subscribe',
-                label : '{{entry.labels}}'
+                event: 'subscribe',
+                labels : '{{entry.labels}}'
               });
               for(var key in segments) {
                 
                 dataLayer.push({
-                  event: 'customEventFi',
-                  category : 'kampanja.apollomatkat.fi',
-                  action : 'sgm_' + key,
-                  label : ( Array.isArray( segments[key] ) ) ? segments[key].join(',') : segments[key]
+                  event: 'segment',
+                  key : key,
+                  values : ( Array.isArray( segments[key] ) ) ? segments[key].join(',') : segments[key]
                 });
                 
               }

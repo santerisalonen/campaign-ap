@@ -4,5 +4,6 @@ $(document).ready(function() {
 		'event' : 'subscribe'
 	};
   parent.postMessage(event, "http://kampanja.apollomatkat.fi");
+  parent.postMessage(event, "https://kampanja.apollomatkat.fi");
  // parent.postMessage(event, "http://localhost:1111");
 });

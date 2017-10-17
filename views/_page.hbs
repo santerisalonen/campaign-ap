@@ -14,8 +14,7 @@
       
       <script>
       dataLayer.push({
-        event: 'pageView',
-        labels : '{{entry.labels}}'
+        tags : '{{entry.labels}}'
       });
       </script>
     
@@ -91,15 +90,18 @@
               
             case 'subscribe': 
               dataLayer.push({
-                event: 'subscribe',
-                labels : '{{entry.labels}}'
+                event: 'autoEvent',
+                eventCategory: 'subscribe',
+                eventAction: 'subscribe',
+                eventLabel : '{{entry.labels}}'
               });
               for(var key in segments) {
                 
                 dataLayer.push({
-                  event: 'segment',
-                  key : key,
-                  values : ( Array.isArray( segments[key] ) ) ? segments[key].join(',') : segments[key]
+                  event: 'autoEvent',
+                  eventCategory: 'segment',
+                  eventAction: key,
+                  eventLabel : ( Array.isArray( segments[key] ) ) ? segments[key].join(',') : segments[key]
                 });
                 
               }

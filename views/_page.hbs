@@ -5,10 +5,14 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
 
       <script src="js/build.js"></script>
-
+      
       <link type="text/css" rel="stylesheet" href="css/build.css"/>
 
       <title>{{entry.seoTitle}}</title>
+      
+      <meta property="og:image" content="{{#if entry.leadImageUrl}}{{entry.leadImageUrl}}{{else}}/img/goa-crop.jpg{{/if}}" />
+      <meta property="og:type" content="article" />
+      <meta property="og:title" content="{{entry.seoTitle}}" />
 
       <script>window.dataLayer = window.dataLayer || [];</script>
       
@@ -21,7 +25,19 @@
     </head>
         
     <body id="page">
-        
+     
+    <!-- Load Facebook SDK for JavaScript -->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.11';
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+
+     
     <div class="container">
         
       <a href="http://www.apollomatkat.fi">
@@ -39,14 +55,16 @@
        
       </div>
       
-      
       <div class="col-md-7">
         
         {{{marked entry.body}}}
 
+      <br/>
       </div>
       <div class="col-md-5" id="subscribe-col">
-     
+      
+        <div class="fb-like" data-href="{{entry._url}}" data-layout="standard" data-action="like" data-size="large" data-show-faces="false" data-share="true"></div>
+        <br/>
    
         <h3>{{#if entry.ctaHeading}} {{entry.ctaHeading}} {{else}} Liity uutiskirjeen tilaajaksi ja saat heti alennuskoodin sähköpostiisi {{/if}}</h3>
 

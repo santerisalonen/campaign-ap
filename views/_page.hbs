@@ -39,7 +39,7 @@
 
      
     <div class="container">
-        
+     
       <a href="http://www.apollomatkat.fi">
         <img src="//cdn-prod-blue-www.apollomatkat.fi/v-eb2616cbc9895159b7ed1aaee3e5b822/content/themes/apollo/content/img/logo_without_slogan2.png" alt="Apollomatkat" />   
       </a>
@@ -63,9 +63,9 @@
       </div>
       <div class="col-md-5" id="subscribe-col">
       
-        <div class="fb-like" data-href="{{entry._url}}" data-layout="standard" data-action="like" data-size="large" data-show-faces="false" data-share="true"></div>
+        <div class="fb-like" data-href="{{config.host}}/{{slugify entry.name}}" data-layout="standard" data-action="like" data-size="large" data-show-faces="false" data-share="true"></div>
         <br/>
-   
+  
         <h3>{{#if entry.ctaHeading}} {{entry.ctaHeading}} {{else}} Liity uutiskirjeen tilaajaksi ja saat heti alennuskoodin sähköpostiisi {{/if}}</h3>
 
         <p>Uutiskirjeen tilaajana saat tiedon myös muista matkatarjouksistamme ennen muita.</p>

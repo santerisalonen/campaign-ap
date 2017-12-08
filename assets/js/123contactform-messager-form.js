@@ -8,7 +8,7 @@ $(document).ready(function() {
   
   // change CTA button Text
   var ctaBtnTxt = getURLParameter('btntxt');
-  if(ctaBtnTxt) {
+  if(ctaBtnTxt && ctaBtnTxt.length > 1) {
     var submitBtn = document.querySelector('input[type=submit]');    
     submitBtn.setAttribute('value', ctaBtnTxt);
   }

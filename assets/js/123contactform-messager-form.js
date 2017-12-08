@@ -6,16 +6,22 @@ function getURLParameter(name) {
 // push message to parent when checkbox is selected
 $(document).ready(function() {
   
+  // change CTA button Text
+  var ctaBtnTxt = getURLParameter('btntxt');
+  if(ctaBtnTxt) {
+    var submitBtn = document.querySelector('input[type=submit]');    
+    submitBtn.setAttribute('value', ctaBtnTxt);
+  }
+  
+  
   var labels = getURLParameter('labels');
   labels = ( labels ) ? labels.split(',') : [];
-
   for(var i = 0; i < labels.length; i++) {
     // console.log(labels[i]);
     var $label = $('.label-text .label-cont:contains('+labels[i]+')');
     
     $label.closest('label').prev('input').prop('checked', true);
 
-    
   }
   
   
